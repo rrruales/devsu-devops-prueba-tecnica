@@ -1,5 +1,10 @@
 FROM python:3.11.3-alpine3.18
 
+ARG DJANGO_SECRET_KEY
+ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+ARG DATABASE_NAME
+ENV DATABASE_NAME=${DATABASE_NAME}
+
 RUN addgroup -g 1000 tmpusrgp
 RUN adduser -u 1000 -G tmpusrgp -h /home/tmpusr -D tmpusr
 USER tmpusr
