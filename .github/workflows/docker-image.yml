@@ -68,6 +68,9 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
+          build-args: |
+            DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}
+            DATABASE_NAME=${{ secrets.DATABASE_NAME }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
