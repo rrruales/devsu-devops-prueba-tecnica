@@ -55,12 +55,17 @@ jobs:
           username: ${{ secrets.USER_DOCKER }}
           password: ${{ secrets.PASSWORD_DOCKER }}
 
+      - name: Get short SHA
+        id: shortsha
+        run: echo "SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-6)" >> $GITHUB_ENV
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: rolo96/devsu
-          tags: $(echo $GITHUB_SHA | cut -c1-6)
+          tags: |
+            type=raw,value=${{ env.SHORT_SHA }},priority=100
 
       - name: Build and push Docker image
         id: push
