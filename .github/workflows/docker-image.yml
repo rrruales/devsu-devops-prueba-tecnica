@@ -60,6 +60,7 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: rolo96/devsu
+          tags: $(date +%s)
 
       - name: Build and push Docker image
         id: push
@@ -80,3 +81,6 @@ jobs:
           subject-name: rolo96/devsu
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+        env:
+          DOCKER_USERNAME: ${{ secrets.USER_DOCKER }}
+          DOCKER_PASSWORD: ${{ secrets.PASSWORD_DOCKER }}
